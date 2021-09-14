@@ -104,7 +104,7 @@ Results,
 
 Event data should look something like this,
 
-INSERT SCREENSHOT HERE
+![Event Data](Screenshot from 2021-09-14 19-32-55.png)
 
 # Elastic Security Solution Alerts
 
@@ -112,7 +112,7 @@ A basic Elastic Security solution alerting rule is in this NDJSON file which you
 
 You should get alerts like this, which you can attach alerting actions too, e.g. create a JIRA ticket, or send the event as a webhook elsewhere, such as to OpsGenie.
 
-INSERT SCREENSHOT HERE
+![Security Alerts](Screenshot from 2021-09-15 09-08-55.png)
 
 # Elastic Dashboard
 
@@ -120,7 +120,7 @@ To visualise your Recorded Future alerts, there's visualisation and dashboard co
 
 Here's what that looks like,
 
-INSERT SCREENSHOT HERE
+![Dashboard](Screenshot from 2021-09-14 20-00-36.png)
 
 # Support
 
