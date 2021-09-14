@@ -1,0 +1,22 @@
+# Module: recordedfuture
+# Docs: TBC
+
+- module: recordedfuture
+  alerts:
+    enabled: true
+
+    # The input type, httpjson or file. Default: httpjson
+    # input: httpjson
+
+    # The interval to poll the API for updates. Default: 1h (1 hour).
+    # var.interval: 1h
+
+    # How far back in time to start fetching alerts when run for the
+    # first time. Value must be in hours. Default: 8760h (approx 1 year).
+    # var.first_interval: 8760h
+
+    # The URL used for Connect API alert search
+    # var.url: "https://api.recordedfuture.com/v2/alert/search"
+
+    # Set your API Token.
+    var.api_token: "YOUR_API_TOKEN_HERE"

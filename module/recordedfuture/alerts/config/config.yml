@@ -1,0 +1,59 @@
+{{ if eq .input "httpjson" }}
+
+type: httpjson
+config_version: "2"
+interval: {{ .interval }}
+
+request.method: GET
+{{ if .ssl }}
+request.ssl: {{ .ssl | tojson }}
+{{ end }}
+{{ if .proxy_url }}
+request.proxy_url: {{ .proxy_url }}
+{{ end }}
+request.url: "{{ .url }}?limit=999999999&taggedText=true&orderby=triggered&direction=asc"
+request.transforms:
+{{ if .api_token }}
+- set:
+    target: header.X-RFToken
+    value: {{ .api_token }}
+- set:
+    target: url.params.triggered
+    value: '[[ .cursor.triggered ]]'
+    default: '[ [[ formatDate (now (parseDuration "-{{ .first_interval }}")) ]],]'
+{{ end }}
+response.split:
+  target: body.data.results
+cursor:
+  triggered:
+    value: '[ [[ .last_event.triggered ]], ]'
+
+{{ else if eq .input "file" }}
+
+type: log
+paths:
+{{ range $i, $path := .paths }}
+  - {{$path}}
+{{ end }}
+exclude_files: [".gz$"]
+
+{{ end }}
+
+tags: {{.tags | tojson}}
+publisher_pipeline.disable_host: {{ inList .tags "forwarded" }}
+
+processors:
+  - decode_json_fields:
+      fields: ['message']
+      target: 'json'
+  - add_fields:
+      target: ''
+      fields:
+        ecs.version: 1.10.0
+  - script:
+      lang: javascript
+      id: set_opt_type
+      source: >
+        function process(event) {
+            event.Put("@metadata.op_type", "index");
+        }

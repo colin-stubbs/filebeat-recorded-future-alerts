@@ -1,0 +1,19 @@
+module_version: 1.0
+
+var:
+  - name: input
+    default: httpjson
+  - name: first_interval
+    default: 8760h
+  - name: interval
+    default: 5m
+  - name: url
+    default: 'https://api.recordedfuture.com/v2/alert/search'
+  - name: ssl
+  - name: tags
+    default: [alerts-recordedfuture, forwarded]
+  - name: proxy_url
+  - name: api_token
+ingest_pipeline:
+  - ingest/pipeline.yml
+input: config/config.yml
